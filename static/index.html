@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leads Report</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect x='1' y='8' width='3' height='7' rx='1' fill='%232a78d6'/><rect x='6' y='4' width='3' height='11' rx='1' fill='%232a78d6'/><rect x='11' y='1' width='3' height='14' rx='1' fill='%230ca30c'/></svg>">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Daily leads report</div>
+      <h1>Leads Report</h1>
+    </div>
+    <div class="header-controls">
+      <label class="ctl">Data
+        <select id="upload-select" title="Which upload to report on"></select>
+      </label>
+      <label class="ctl">Report date
+        <input type="date" id="anchor-input" title="Anchor for FTD / MTD">
+      </label>
+      <button id="upload-btn" class="btn primary">Upload dump</button>
+    </div>
+  </header>
+  <p class="sub anchor-line" id="anchor-line"></p>
+
+  <!-- Upload / mapping flow -->
+  <section id="upload-panel" class="card hidden">
+    <div id="drop-step">
+      <div id="dropzone" tabindex="0">
+        <p><b>Drop your Excel or CSV file here</b> or click to browse</p>
+        <p class="note">.xlsx, .xls, or .csv · up to 20 MB · the sheet with the most rows is used</p>
+      </div>
+      <input type="file" id="file-input" accept=".xlsx,.xls,.xlsm,.csv,.txt" hidden>
+    </div>
+    <div id="map-step" class="hidden">
+      <h2>Map your columns</h2>
+      <p class="sub" id="map-meta"></p>
+      <div class="tblwrap"><table id="map-table"></table></div>
+      <details id="sample-details"><summary>Preview first rows of the file</summary>
+        <div class="tblwrap"><table id="sample-table"></table></div>
+      </details>
+      <div class="actions">
+        <button id="commit-btn" class="btn primary">Publish report</button>
+        <button id="cancel-btn" class="btn">Cancel</button>
+      </div>
+    </div>
+    <p id="upload-error" class="error hidden"></p>
+  </section>
+
+  <div id="empty-state" class="card center hidden">
+    <p><b>No data yet.</b> Upload today's lead dump to publish the report.</p>
+  </div>
+
+  <!-- Report -->
+  <div id="report" class="hidden">
+    <nav class="tabs" id="tabs" role="tablist"></nav>
+    <div id="view" class="view"></div>
+  </div>
+
+  <footer>
+    FTD = leads created on the report date · MTD = its calendar month · LTD = all
+    time. Values of <code>0</code> in the dump are treated as blank; qualification
+    is bucketed into QL / Open / Lost.
+  </footer>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>
